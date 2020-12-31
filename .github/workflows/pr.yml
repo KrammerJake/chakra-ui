@@ -12,23 +12,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        # set the default directory for all "run" commands to "/chakra", which
-        # is the directory where the repo code will be checked out to. we put
-        # the code in /chakra so that the CRA templates build step can build
-        # the projects in a directory outside of the repo tree, which is needed
-        # because CRA throws errors due to conflicting package versions
-        working-directory: chakra
     steps:
-      - name: Get Yarn cache path
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
       - name: Checkout
         uses: actions/checkout@v1
-        with:
-          path: "chakra"
+
+      - name: pwd
+        run: pwd
+
+      - name: Get Yarn cache path
+        id: yarn-cache
+        run: |
+          echo "Hello World"
+          echo $(which yarn)
+          echo $(yarn -v)
+          echo $(yarn cache dir)
+          echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Enable node
         uses: actions/setup-node@v1
